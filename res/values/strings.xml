@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">My Twatter</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_photos">Flickr Photos</string>
+    <string name="login_label">Connect to Twitter</string>
+    <string name="title_activity_timeline">TimelineActivity</string>
+	<string name="dummy_user_name">Foo</string>
+	<string name="dummy_screen_name">\@foo</string>
+	<string name="dummy_time">4h</string>
+	<string name="dummy_tweet_body">Tweet dummy body. Tweet dummy body. Tweet dummy body with humongous words like blahblahblahblahblahblahhblah?</string>
+	<string name="menu_title_compose">Compose</string>
+</resources>

@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+	<item
+        android:id="@+id/miCompose"
+        android:icon="@drawable/ic_compose"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_title_compose"
+        android:onClick="onCompose">
+    </item>    
+
+</menu>
