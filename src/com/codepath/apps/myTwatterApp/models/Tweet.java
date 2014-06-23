@@ -13,6 +13,7 @@ public class Tweet {
 	private User user;
 	public static Long since_id = 0l;
 	public static Long max_id = 0l;
+	public static Long top_max_id = 0l;
 	
 	public static Tweet fromJson(JSONObject jsonObj) {
 		Tweet tweet = new Tweet();
@@ -30,6 +31,7 @@ public class Tweet {
 			
 			if (tweet.id > Tweet.max_id) {
 				Tweet.max_id = tweet.id;
+				Tweet.top_max_id = tweet.id;
 			}
 			tweet.createdAt = jsonObj.getString("created_at");
 			tweet.user = User.fromJson(jsonObj.getJSONObject("user"));

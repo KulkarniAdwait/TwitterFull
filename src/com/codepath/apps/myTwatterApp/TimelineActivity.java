@@ -101,7 +101,25 @@ public class TimelineActivity extends Activity {
 				Log.d("debug", e.toString());
 				Log.d("debug", s.toString());
 			}
-		}, Tweet.since_id, Tweet.max_id);
+		}, Tweet.max_id);
+		
+		//Toast.makeText(this, "min:" + String.valueOf(Tweet.since_id) + " max:" + String.valueOf(Tweet.max_id), Toast.LENGTH_LONG).show();
+	}
+	
+	private void populateTimelineSince() {
+		client.getHomeTimelineSince(new JsonHttpResponseHandler(){
+			@Override
+			public void onSuccess(JSONArray json) {
+				aTweets.addAll(Tweet.fromJsonArray(json));
+				aTweets.notifyDataSetChanged();
+			}
+			
+			@Override
+			public void onFailure(Throwable e, String s) {
+				Log.d("debug", e.toString());
+				Log.d("debug", s.toString());
+			}
+		}, Tweet.since_id);
 		
 		//Toast.makeText(this, "min:" + String.valueOf(Tweet.since_id) + " max:" + String.valueOf(Tweet.max_id), Toast.LENGTH_LONG).show();
 	}
@@ -111,7 +129,10 @@ public class TimelineActivity extends Activity {
 	  // REQUEST_CODE is defined above
 	  if (resultCode == RESULT_OK && requestCode == 111) {
 		  aTweets.clear();
-	     populateTimeline();
+		  Tweet.max_id = Tweet.top_max_id;
+		  Tweet.since_id = Tweet.top_max_id;
+		  //populateTimeline();
+		  populateTimelineSince();
 	  }
 	} 
 }
