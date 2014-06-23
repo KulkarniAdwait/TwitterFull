@@ -8,15 +8,29 @@ import org.json.JSONObject;
 
 public class Tweet {
 	private String body;
-	private long id;
+	private Long id;
 	private String createdAt;
 	private User user;
+	public static Long since_id = 0l;
+	public static Long max_id = 0l;
 	
 	public static Tweet fromJson(JSONObject jsonObj) {
 		Tweet tweet = new Tweet();
 		try {
 			tweet.body = jsonObj.getString("text");
 			tweet.id = jsonObj.getLong("id");
+			//for the first time set of min id
+			if(Tweet.since_id == 0) {
+				Tweet.since_id = tweet.id;
+			}
+			
+			if(tweet.id < Tweet.since_id) {
+				Tweet.since_id = tweet.id;
+			}
+			
+			if (tweet.id > Tweet.max_id) {
+				Tweet.max_id = tweet.id;
+			}
 			tweet.createdAt = jsonObj.getString("created_at");
 			tweet.user = User.fromJson(jsonObj.getJSONObject("user"));
 		} catch (JSONException je) {

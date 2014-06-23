@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.codepath.apps.myTwatterApp.models.Tweet;
 import com.codepath.apps.myTwatterApp.models.User;
@@ -55,6 +56,19 @@ public class TimelineActivity extends Activity {
 		populateTimeline();
 		populateActionBar();
 		
+		lvTweets.setOnScrollListener(new EndlessScrollListener() {
+		    @Override
+		    public void onLoadMore(int page, int totalItemsCount) {
+	                // Triggered only when new data needs to be appended to the list
+	                // Add whatever code is needed to append new items to your AdapterView
+		    	//extra -1 so that the oldest tweet isn't pulled again
+		    	Tweet.max_id = Tweet.since_id - 1;
+		    	Tweet.since_id -= 15;
+		    	
+		    	populateTimeline();
+	    	}
+        });
+		
 	}
 	
 	private void populateActionBar() {
@@ -87,7 +101,9 @@ public class TimelineActivity extends Activity {
 				Log.d("debug", e.toString());
 				Log.d("debug", s.toString());
 			}
-		});
+		}, Tweet.since_id, Tweet.max_id);
+		
+		//Toast.makeText(this, "min:" + String.valueOf(Tweet.since_id) + " max:" + String.valueOf(Tweet.max_id), Toast.LENGTH_LONG).show();
 	}
 	
 	@Override
