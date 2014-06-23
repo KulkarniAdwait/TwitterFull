@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${packageName}.${activityClass}" >
+
+    <ImageView
+        android:id="@+id/ivProfileImage_1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="7dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvUserName_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ivProfileImage_1"
+        android:layout_alignTop="@+id/ivProfileImage_1"
+        android:text="@string/dummy_user_name"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+    
+    <TextView
+        android:id="@+id/tvScreenName_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ivProfileImage_1"
+        android:layout_toRightOf="@+id/ivProfileImage_1"
+        android:textColor="@android:color/darker_gray"
+        android:text="@string/dummy_screen_name"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/etComposeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/ivProfileImage_1"
+        android:ems="10"
+        android:inputType="textMultiLine" 
+        android:hint="@string/et_hint_compose"
+        android:maxLength="140">
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/btnCompose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/btn_compose"
+        android:onClick="onCompose"
+        android:layout_margin="6sp"
+        android:textColor="@android:color/white"
+        android:background="@android:color/holo_blue_light"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvRemainingChars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ivProfileImage_1"
+        android:layout_toLeftOf="@+id/btnCompose"
+        android:text="@string/tv_remaining_chars"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/darker_gray" />
+
+    
+
+</RelativeLayout>

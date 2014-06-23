@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +24,7 @@ public class TimelineActivity extends Activity {
 	private ArrayList<Tweet> tweets;
 	private TweetArrayAdapter aTweets;
 	private ListView lvTweets;
+	private User u;
 	
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -32,7 +34,11 @@ public class TimelineActivity extends Activity {
     }
 	
 	public void onCompose(MenuItem mi) {
-		
+		Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
+		i.putExtra("userName", u.getName());
+		i.putExtra("screenName", u.getScreenName());
+		i.putExtra("imgUrl", u.getProfileImgUrl());
+		startActivityForResult(i, 111);
 	}
 	
 	@Override
@@ -56,7 +62,7 @@ public class TimelineActivity extends Activity {
 			@Override
 			public void onSuccess(JSONObject accoutDetails) {
 				ActionBar actionBar = getActionBar();
-				User u = User.fromJson(accoutDetails);
+				u = User.fromJson(accoutDetails);
 				actionBar.setTitle("@" + u.getScreenName());
 			}
 			
@@ -65,9 +71,7 @@ public class TimelineActivity extends Activity {
 				Log.d("debug", e.toString());
 				Log.d("debug", s.toString());
 			}
-		});
-		
-		
+		});	
 	}
 
 	private void populateTimeline() {
@@ -85,4 +89,13 @@ public class TimelineActivity extends Activity {
 			}
 		});
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	  // REQUEST_CODE is defined above
+	  if (resultCode == RESULT_OK && requestCode == 111) {
+		  aTweets.clear();
+	     populateTimeline();
+	  }
+	} 
 }
