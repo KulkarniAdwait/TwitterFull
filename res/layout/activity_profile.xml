@@ -1,0 +1,91 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${packageName}.${activityClass}" >
+
+    <RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    tools:context="${packageName}.${activityClass}" 
+    android:id="@+id/rlProfileHeader">
+    <ImageView
+        android:id="@+id/ivProfileProfileImage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvProfileUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivProfileProfileImage"
+        android:layout_centerHorizontal="true"
+        android:text="@string/dummy_user_name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/tvProfileScreenName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvProfileUserName"
+        android:layout_centerHorizontal="true"
+        android:text="@string/dummy_screen_name" />
+	</RelativeLayout>
+	<TextView
+	    android:id="@+id/tvProfileNumTweets"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    
+	    android:layout_below="@+id/rlProfileHeader"
+	    android:layout_marginTop="14dp"
+	    android:text="@string/test_number_23" />
+    
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvProfileNumTweets"
+        android:text="@string/word_tweets" />
+
+    <TextView
+        android:id="@+id/tvProfileNumFollowing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_alignTop="@+id/tvProfileNumTweets"
+        android:text="@string/test_number_23" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@+id/textView4"
+        android:gravity="center_horizontal"
+        
+        android:text="@string/word_following" />
+
+    <TextView
+        android:id="@+id/tvProfileNumFollowers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView8"
+        android:layout_alignTop="@+id/tvProfileNumFollowing"
+        android:text="@string/test_number_23" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView6"
+        android:layout_alignBottom="@+id/textView6"
+        android:layout_alignParentRight="true"
+        android:text="@string/word_followers" />
+
+</RelativeLayout>
