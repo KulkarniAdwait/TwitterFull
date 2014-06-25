@@ -1,11 +1,3 @@
-# Twitter App
+# Enhanced Twitter App
 ===========
-Twitter App for android dev class.
-
-Time ~2 days (World Cup)
-
-Completed all the required stories.
-
-Optional: User can see a counter with total number of characters left for tweet.
-
-![Video Walkthrough](MyTwatter.gif)
+Twitter App for android dev class with all the bells and whistles.
