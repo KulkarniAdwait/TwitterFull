@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Locale;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -18,13 +20,13 @@ import com.codepath.apps.myTwatterApp.models.Tweet;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
-
+	
 	public TweetArrayAdapter(Context context, List<Tweet> objects) {
 		super(context, 0, objects);
 	}
 	
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		Tweet tweet = getItem(position);
 		
 		View v;
@@ -49,6 +51,16 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 		tvBody.setText(tweet.getBody());
 		tvTime.setText(getRelativeTime(tweet.getCreatedAt()));
 		tvScreenName.setText("@" + tweet.getUser().getScreenName());
+		
+		ivProfileImage.setOnClickListener(new OnClickListener() {
+			Tweet t = getItem(position);
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getContext(), ProfileActivity.class);
+				i.putExtra("user", t.getUser());
+				getContext().startActivity(i);
+			}
+		});
 			
 		return v;
 	}

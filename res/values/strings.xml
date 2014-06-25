@@ -6,8 +6,8 @@
     <string name="title_activity_photos">Flickr Photos</string>
     <string name="login_label">Connect to Twitter</string>
     <string name="title_activity_timeline">TimelineActivity</string>
-    <string name="dummy_user_name">Foo</string>
-    <string name="dummy_screen_name">\@foo</string>
+    <string name="dummy_user_name">Foonami Barts</string>
+    <string name="dummy_screen_name">\@foo_barts</string>
     <string name="dummy_time">4h</string>
     <string name="dummy_tweet_body">Tweet dummy body. Tweet dummy body. Tweet dummy body with humongous words like blahblahblahblahblahblahhblah?</string>
     <string name="menu_title_compose">Compose</string>
@@ -16,5 +16,10 @@
     <string name="btn_compose">Compose</string>
     <string name="et_hint_compose">What\'s happenning</string>
     <string name="tv_remaining_chars">140</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="word_tweets">TWEETS</string>
+    <string name="word_following">FOLLOWING</string>
+    <string name="word_followers">FOLLOWERS</string>
+    <string name="test_number_23">23</string>
 
 </resources>

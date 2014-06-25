@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.codepath.apps.myTwatterApp.models.Tweet;
 import com.codepath.apps.myTwatterApp.models.User;
@@ -107,7 +106,7 @@ public class TimelineActivity extends Activity {
 	}
 	
 	private void populateTimelineSince() {
-		client.getHomeTimelineSince(new JsonHttpResponseHandler(){
+		client.getHomeTimelineSince(new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONArray json) {
 				aTweets.addAll(Tweet.fromJsonArray(json));
