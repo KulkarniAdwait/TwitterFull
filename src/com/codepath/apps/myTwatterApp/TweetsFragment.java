@@ -40,6 +40,20 @@ public class TweetsFragment extends Fragment {
 		
 		lvTweets = (ListView) v.findViewById(R.id.lvFragTweets);
 		lvTweets.setAdapter(aTweets);
+		
+		lvTweets.setOnScrollListener(new EndlessScrollListener() {
+		    @Override
+		    public void onLoadMore(int page, int totalItemsCount) {
+	                // Triggered only when new data needs to be appended to the list
+	                // Add whatever code is needed to append new items to your AdapterView
+		    	//extra -1 so that the oldest tweet isn't pulled again
+		    	Tweet.max_id = Tweet.since_id - 1;
+		    	Tweet.since_id -= 15;
+		    	
+		    	populateTimeline();
+	    	}
+        });
+		
 		return v;
 	}
 	
@@ -73,11 +87,11 @@ public class TweetsFragment extends Fragment {
 					Log.d("debug", e.toString());
 					Log.d("debug", s.toString());
 				}
-			}, user.getId());
+			}, user.getId(), Tweet.max_id);
 		}
 		else //default to home time line
 		{
-			client.getUserTimeline(new JsonHttpResponseHandler(){
+			client.getHomeTimeline(new JsonHttpResponseHandler(){
 				@Override
 				public void onSuccess(JSONArray json) {
 					aTweets.addAll(Tweet.fromJsonArray(json));
@@ -91,6 +105,5 @@ public class TweetsFragment extends Fragment {
 				}
 			}, Tweet.max_id);
 		}
-		//Toast.makeText(this, "min:" + String.valueOf(Tweet.since_id) + " max:" + String.valueOf(Tweet.max_id), Toast.LENGTH_LONG).show();
 	}
 }
