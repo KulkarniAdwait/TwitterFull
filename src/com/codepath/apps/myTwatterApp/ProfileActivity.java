@@ -1,16 +1,19 @@
 package com.codepath.apps.myTwatterApp;
 
 import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.activeandroid.util.Log;
 import com.codepath.apps.myTwatterApp.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -18,7 +21,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
-public class ProfileActivity extends Activity {
+public class ProfileActivity extends FragmentActivity {
 
 	TextView tvProfileUserName;
 	TextView tvProfileScreenName;
@@ -94,6 +97,11 @@ public class ProfileActivity extends Activity {
 				Log.d("DEBUG", s);
 			}
 		}, u.getId());
+		
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		TweetsFragment tf = TweetsFragment.newUserInstance(u);
+		ft.replace(R.id.flProfileTweets, tf);
+		ft.commit();
 		
 	}
 }

@@ -6,7 +6,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Tweet {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Tweet implements Parcelable {
 	private String body;
 	private Long id;
 	private String createdAt;
@@ -31,7 +34,7 @@ public class Tweet {
 			
 			if (tweet.id > Tweet.max_id) {
 				Tweet.max_id = tweet.id;
-				Tweet.top_max_id = tweet.id;
+				Tweet.setTop_max_id(tweet.id);
 			}
 			tweet.createdAt = jsonObj.getString("created_at");
 			tweet.user = User.fromJson(jsonObj.getJSONObject("user"));
@@ -56,6 +59,10 @@ public class Tweet {
 
 	public User getUser() {
 		return user;
+	}
+	
+	public Tweet() {
+		
 	}
 
 	public static ArrayList<Tweet> fromJsonArray(JSONArray jsonArray) {
@@ -82,4 +89,49 @@ public class Tweet {
 	public String toString() {
 		return this.body + " " + this.user;
 	}
+
+    protected Tweet(Parcel in) {
+        body = in.readString();
+        id = in.readByte() == 0x00 ? null : in.readLong();
+        createdAt = in.readString();
+        user = (User) in.readValue(User.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(body);
+        if (id == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeLong(id);
+        }
+        dest.writeString(createdAt);
+        dest.writeValue(user);
+    }
+
+    public static Long getTop_max_id() {
+		return top_max_id;
+	}
+
+	public static void setTop_max_id(Long top_max_id) {
+		Tweet.top_max_id = top_max_id;
+	}
+
+	public static final Parcelable.Creator<Tweet> CREATOR = new Parcelable.Creator<Tweet>() {
+        @Override
+        public Tweet createFromParcel(Parcel in) {
+            return new Tweet(in);
+        }
+
+        @Override
+        public Tweet[] newArray(int size) {
+            return new Tweet[size];
+        }
+    };
 }

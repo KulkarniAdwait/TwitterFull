@@ -128,8 +128,8 @@ public class TimelineActivity extends Activity {
 	  // REQUEST_CODE is defined above
 	  if (resultCode == RESULT_OK && requestCode == 111) {
 		  aTweets.clear();
-		  Tweet.max_id = Tweet.top_max_id;
-		  Tweet.since_id = Tweet.top_max_id;
+		  Tweet.max_id = Tweet.getTop_max_id();
+		  Tweet.since_id = Tweet.getTop_max_id();
 		  //populateTimeline();
 		  populateTimelineSince();
 	  }
