@@ -64,6 +64,11 @@ public class TwitterClient extends OAuthBaseClient {
     	client.post(apiUrl, params, handler);
     }
     
+    public void getUserProfileBanner(AsyncHttpResponseHandler handler, RequestParams params) {
+    	String apiUrl = getApiUrl("users/profile_banner.json");
+    	client.get(apiUrl, params, handler);
+    }
+    
 
     
 

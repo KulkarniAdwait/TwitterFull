@@ -11,7 +11,7 @@ public class User implements Parcelable {
 	private String name;
 	private String screenName;
 	private String profileImgUrl;
-	private String profileBackgroundImgUrl;
+	private String profileBannerUrl;
 	private long uid;
 	private long numFollowers;
 	private long numFollowing;
@@ -26,7 +26,7 @@ public class User implements Parcelable {
 		this.name = data[0];
 		this.screenName = data[1];
 		this.profileImgUrl = data[2];
-		this.profileBackgroundImgUrl = data[3];
+		this.profileBannerUrl = data[3];
 		
 		long[] longs = new long[4];
 		in.readLongArray(longs);
@@ -37,8 +37,8 @@ public class User implements Parcelable {
 		this.numTweets = longs[3];
 	}
 
-	public String getProfileBackgroundImgUrl() {
-		return profileBackgroundImgUrl;
+	public String profileBannerUrl() {
+		return profileBannerUrl;
 	}
 
 	public User() {
@@ -74,10 +74,16 @@ public class User implements Parcelable {
 	public String getScreenName() {
 		return screenName;
 	}
-
+	
 	public String getProfileImgUrl() {
 		return profileImgUrl;
 	}
+
+	public String getProfileBannerUrl() {
+		return profileBannerUrl;
+	}
+	
+	
 
 	public static User fromJson(JSONObject jsonObject) {
 		User user = new User();
@@ -99,7 +105,15 @@ public class User implements Parcelable {
 			this.numFollowers = jsonObject.getLong("followers_count");
 			this.numFollowing = jsonObject.getLong("friends_count");
 			this.numTweets = jsonObject.getLong("statuses_count");
-			this.profileBackgroundImgUrl = jsonObject.getString("profile_background_image_url");
+		} catch (JSONException je) {
+			je.printStackTrace();
+		}
+	}
+	
+	public void updateProfileBanner(JSONObject jsonObject) {
+		try {
+			JSONObject banner = jsonObject.getJSONObject("sizes").getJSONObject("mobile_retina");
+			this.profileBannerUrl = banner.getString("url");
 		} catch (JSONException je) {
 			je.printStackTrace();
 		}
@@ -131,7 +145,7 @@ public class User implements Parcelable {
 					this.name,
 					this.screenName,
 					this.profileImgUrl,
-					this.profileBackgroundImgUrl
+					this.profileBannerUrl
 				});
 		dest.writeLongArray(new long[]
 				{

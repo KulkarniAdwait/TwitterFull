@@ -6,10 +6,12 @@
     tools:context="${packageName}.${activityClass}" >
 
     <RelativeLayout 
+    android:id="@+id/rlProfileHeader"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
-    tools:context="${packageName}.${activityClass}" 
-    android:id="@+id/rlProfileHeader">
+    android:layout_height="130dp"
+    tools:context="${packageName}.${activityClass}"
+    android:background="#66757f" 
+    >
     <ImageView
         android:id="@+id/ivProfileProfileImage"
         android:layout_width="40dp"

@@ -66,15 +66,29 @@ public class ProfileActivity extends FragmentActivity {
 			public void onSuccess(JSONObject jsonObject) {
 				u.updateUser(jsonObject);
 				
-				ImageLoader imgLoader = ImageLoader.getInstance();
-				imgLoader.displayImage(u.getProfileImgUrl(), ivProfileProfileImage);
+				
 				tvProfileUserName.setText(u.getName());
 				tvProfileScreenName.setText("@" + u.getScreenName());
 				tvProfileNumTweets.setText(String.valueOf(u.getNumTweets()));
 				tvProfileNumFollowers.setText(String.valueOf(u.getNumFollowers()));
 				tvProfileNumFollowing.setText(String.valueOf(u.getNumFollowing()));
-				
-				imgLoader.loadImage(u.getProfileBackgroundImgUrl(), new ImageLoadingListener() {
+				ImageLoader imgLoader = ImageLoader.getInstance();
+				imgLoader.displayImage(u.getProfileImgUrl(), ivProfileProfileImage);
+			}
+			
+			@Override
+			public void onFailure(Throwable e, String s) {
+				Log.d("DEBUG", e.toString());
+				Log.d("DEBUG", s);
+			}
+		}, new TwitterParamBuilder().userId(u.getId()).buildParams());
+		
+		client.getUserProfileBanner(new JsonHttpResponseHandler() {
+			@Override
+			public void onSuccess(JSONObject jsonObject) {
+				u.updateProfileBanner(jsonObject);
+				ImageLoader imgLoader = ImageLoader.getInstance();
+				imgLoader.loadImage(u.getProfileBannerUrl(), new ImageLoadingListener() {
 					
 					@Override
 					public void onLoadingStarted(String arg0, View arg1) {
@@ -102,12 +116,6 @@ public class ProfileActivity extends FragmentActivity {
 						
 					}
 				});
-			}
-			
-			@Override
-			public void onFailure(Throwable e, String s) {
-				Log.d("DEBUG", e.toString());
-				Log.d("DEBUG", s);
 			}
 		}, new TwitterParamBuilder().userId(u.getId()).buildParams());
 		
