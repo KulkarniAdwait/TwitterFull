@@ -23,5 +23,6 @@
     <string name="test_number_23">23</string>
     <string name="profile_image">profile image</string>
     <string name="icon_image">profile image</string>
+    <string name="title_activity_timeline_pager">TimelinePagerActivity</string>
 
 </resources>

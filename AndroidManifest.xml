@@ -55,6 +55,10 @@
             android:name="com.codepath.apps.myTwatterApp.ProfileActivity"
             android:label="@string/title_activity_profile" >
         </activity>
+        <activity
+            android:name="com.codepath.apps.myTwatterApp.TimelinePagerActivity"
+            android:label="@string/title_activity_timeline_pager" >
+        </activity>
     </application>
 
 </manifest>
