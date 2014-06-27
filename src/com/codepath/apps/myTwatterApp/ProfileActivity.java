@@ -96,10 +96,10 @@ public class ProfileActivity extends FragmentActivity {
 				Log.d("DEBUG", e.toString());
 				Log.d("DEBUG", s);
 			}
-		}, u.getId());
+		}, new TwitterParamBuilder().userId(u.getId()).buildParams());
 		
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		TweetsFragment tf = TweetsFragment.newUserInstance(u);
+		UserTweetsFragment tf = UserTweetsFragment.newInstance(u);
 		ft.replace(R.id.flProfileTweets, tf);
 		ft.commit();
 		

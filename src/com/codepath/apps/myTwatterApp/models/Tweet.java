@@ -14,9 +14,9 @@ public class Tweet implements Parcelable {
 	private Long id;
 	private String createdAt;
 	private User user;
-	public static Long since_id = 0l;
-	public static Long max_id = 0l;
-	public static Long top_max_id = 0l;
+	//public static Long since_id = 0l;
+	//public static Long max_id = 0l;
+	//public static Long top_max_id = 0l;
 	
 	public static Tweet fromJson(JSONObject jsonObj) {
 		Tweet tweet = new Tweet();
@@ -24,18 +24,18 @@ public class Tweet implements Parcelable {
 			tweet.body = jsonObj.getString("text");
 			tweet.id = jsonObj.getLong("id");
 			//for the first time set of min id
-			if(Tweet.since_id == 0) {
-				Tweet.since_id = tweet.id;
-			}
-			
-			if(tweet.id < Tweet.since_id) {
-				Tweet.since_id = tweet.id;
-			}
-			
-			if (tweet.id > Tweet.max_id) {
-				Tweet.max_id = tweet.id;
-				Tweet.setTop_max_id(tweet.id);
-			}
+//			if(Tweet.since_id == 0) {
+//				Tweet.since_id = tweet.id;
+//			}
+//			
+//			if(tweet.id < Tweet.since_id) {
+//				Tweet.since_id = tweet.id;
+//			}
+//			
+//			if (tweet.id > Tweet.max_id) {
+//				Tweet.max_id = tweet.id;
+//				Tweet.setTop_max_id(tweet.id);
+//			}
 			tweet.createdAt = jsonObj.getString("created_at");
 			tweet.user = User.fromJson(jsonObj.getJSONObject("user"));
 		} catch (JSONException je) {
@@ -115,13 +115,14 @@ public class Tweet implements Parcelable {
         dest.writeValue(user);
     }
 
-    public static Long getTop_max_id() {
-		return top_max_id;
-	}
+//    public static Long getTop_max_id() {
+//		//return top_max_id;
+//    	return 0l;
+//	}
 
-	public static void setTop_max_id(Long top_max_id) {
-		Tweet.top_max_id = top_max_id;
-	}
+//	public static void setTop_max_id(Long top_max_id) {
+////		Tweet.top_max_id = top_max_id;
+//	}
 
 	public static final Parcelable.Creator<Tweet> CREATOR = new Parcelable.Creator<Tweet>() {
         @Override

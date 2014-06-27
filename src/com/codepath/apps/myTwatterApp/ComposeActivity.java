@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codepath.apps.myTwatterApp.models.User;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -22,23 +23,26 @@ public class ComposeActivity extends Activity {
 	ImageView ivProfileImage;
 	private TwitterClient client;
 	final int TWEET_SIZE = 140;
+	User u;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_compose);
 		
+		u = getIntent().getParcelableExtra("user");
+		
 		etComposeText = (EditText) findViewById(R.id.etComposeText);
 		
 		tvUserName = (TextView) findViewById(R.id.tvUserName_1);
-		tvUserName.setText(getIntent().getStringExtra("userName"));
+		tvUserName.setText(u.getName());
 		
 		tvScreenName = (TextView) findViewById(R.id.tvScreenName_1);
-		tvScreenName.setText("@" + getIntent().getStringExtra("screenName"));
+		tvScreenName.setText("@" + u.getScreenName());
 		
 		ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage_1);
 		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.displayImage(getIntent().getStringExtra("imgUrl"), ivProfileImage);
+		imageLoader.displayImage(u.getProfileImgUrl(), ivProfileImage);
 		
 		tvRemainingChars = (TextView) findViewById(R.id.tvRemainingChars);
 		

@@ -32,25 +32,8 @@ public class TwitterClient extends OAuthBaseClient {
         super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
     }
     
-    public void getHomeTimeline(AsyncHttpResponseHandler handler, long max_id) {
+    public void getHomeTimeline(AsyncHttpResponseHandler handler, RequestParams params) {
     	String apiUrl = getApiUrl("statuses/home_timeline.json");
-    	RequestParams params = new RequestParams();
-    	params.put("count", "15");
-    	
-    	if(max_id != 0) {
-    		params.put("max_id", String.valueOf(max_id));
-    	}
-    	client.get(apiUrl, params, handler);
-    }
-    
-    public void getHomeTimelineSince(AsyncHttpResponseHandler handler, long since_id) {
-    	String apiUrl = getApiUrl("statuses/home_timeline.json");
-    	RequestParams params = new RequestParams();
-    	params.put("count", "15");
-    	
-    	if(since_id != 0) {
-    		params.put("since_id", String.valueOf(since_id));
-    	}
     	client.get(apiUrl, params, handler);
     }
     
@@ -66,21 +49,16 @@ public class TwitterClient extends OAuthBaseClient {
     	client.post(apiUrl, params, handler);
     }
     
-    public void getUserDetails(AsyncHttpResponseHandler handler, long user_id) {
+    public void getUserDetails(AsyncHttpResponseHandler handler, RequestParams params) {
     	String apiUrl = getApiUrl("users/show.json");
-    	RequestParams params = new RequestParams();
-    	params.put("user_id", String.valueOf(user_id));
     	client.get(apiUrl, params, handler);
     }
     
-    public void getUserTimeline(AsyncHttpResponseHandler handler, long user_id, long max_id) {
+    public void getUserTimeline(AsyncHttpResponseHandler handler, RequestParams params) {
     	String apiUrl = getApiUrl("statuses/user_timeline.json");
-    	RequestParams params = new RequestParams();
-    	params.put("user_id", String.valueOf(user_id));
-    	params.put("max_id", String.valueOf(max_id));
-    	params.put("count", "15");
     	client.get(apiUrl, params, handler);
     }
+    
     
     // CHANGE THIS
     // DEFINE METHODS for different API endpoints here
