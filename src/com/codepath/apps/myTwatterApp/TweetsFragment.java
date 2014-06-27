@@ -73,6 +73,10 @@ public class TweetsFragment extends Fragment {
 		populateTimeline();
 	}
 	
+
+	/**
+	 * 
+	 */
 	protected void populateTimeline() {
 		client.getHomeTimeline(jsonHttpResponseHandler()
 				, new TwitterParamBuilder()
