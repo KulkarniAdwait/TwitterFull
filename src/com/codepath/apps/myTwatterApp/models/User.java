@@ -17,6 +17,8 @@ public class User implements Parcelable {
 	private long numFollowing;
 	private long numTweets;
 	
+	public static User appUser; 
+	
 	public User(Parcel in) {
 		String[] data = new String[4];
 		in.readStringArray(data);

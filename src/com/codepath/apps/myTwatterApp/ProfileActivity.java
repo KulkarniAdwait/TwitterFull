@@ -3,12 +3,15 @@ package com.codepath.apps.myTwatterApp;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -31,6 +34,7 @@ public class ProfileActivity extends FragmentActivity {
 	TextView tvProfileNumFollowing;
 	RelativeLayout rlProfileHeader;
 	User u;
+	private final int COMPOSE_CODE = 111;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,16 @@ public class ProfileActivity extends FragmentActivity {
 		tvProfileNumFollowing = (TextView) findViewById(R.id.tvProfileNumFollowing);
 		
 		TwitterClient client = MyTwatterApp.getRestClient();
-		u = (User) getIntent().getParcelableExtra("user");
+		
+		//user is passed by the click handler on the profile image of other users
+		//use the app User if we are looking at the signed in users profile
+		//else view the other user profile
+		if(getIntent().getBooleanExtra("appUser", false)) {
+			u = User.appUser;
+		}
+		else {
+			u = (User) getIntent().getParcelableExtra("user");
+		}
 		
 		client.getUserDetails(new JsonHttpResponseHandler() {
 			@Override
@@ -103,5 +116,32 @@ public class ProfileActivity extends FragmentActivity {
 		ft.replace(R.id.flProfileTweets, tf);
 		ft.commit();
 		
+	}
+	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+	
+	public void onCompose(MenuItem mi) {
+		Intent i = new Intent(ProfileActivity.this, ComposeActivity.class);
+		startActivityForResult(i, COMPOSE_CODE);
+	}
+	
+	public void onProfile(MenuItem mi) {
+		Intent i = new Intent(ProfileActivity.this, ProfileActivity.class);
+		i.putExtra("appUser", true);
+		startActivity(i);
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		if (resultCode == RESULT_OK && requestCode == COMPOSE_CODE) {
+			  Intent i = new Intent(ProfileActivity.this, TimelineActivity.class);
+			  startActivity(i);
+		}
 	}
 }

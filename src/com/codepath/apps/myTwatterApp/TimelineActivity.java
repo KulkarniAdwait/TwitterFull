@@ -15,8 +15,6 @@ import com.codepath.apps.myTwatterApp.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class TimelineActivity extends FragmentActivity {
-
-	private User u;
 	private TweetsFragment tweetsFragment;
 	
 	private final int COMPOSE_CODE = 111;
@@ -30,13 +28,12 @@ public class TimelineActivity extends FragmentActivity {
 	
 	public void onCompose(MenuItem mi) {
 		Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
-		i.putExtra("user", u);
 		startActivityForResult(i, COMPOSE_CODE);
 	}
 	
 	public void onProfile(MenuItem mi) {
 		Intent i = new Intent(TimelineActivity.this, ProfileActivity.class);
-		i.putExtra("user", u);
+		i.putExtra("appUser", true);
 		startActivity(i);
 	}
 	
@@ -45,7 +42,7 @@ public class TimelineActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_timeline);
 		
-		populateActionBar();
+		getUserDetails();
 		
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		tweetsFragment = TweetsFragment.newInstance();
@@ -53,22 +50,28 @@ public class TimelineActivity extends FragmentActivity {
 		ft.commit();		
 	}
 	
+	private void getUserDetails() {
+		if(User.appUser == null) {
+			TwitterClient client = MyTwatterApp.getRestClient();
+			client.getAccount(new JsonHttpResponseHandler() {
+				@Override
+				public void onSuccess(JSONObject accoutDetails) {
+					User.appUser = User.fromJson(accoutDetails);
+					populateActionBar();
+				}
+				
+				@Override
+				public void onFailure(Throwable e, String s) {
+					Log.d("debug", e.toString());
+					Log.d("debug", s.toString());
+				}
+			});	
+		}
+	}
+
 	private void populateActionBar() {
-		TwitterClient client = MyTwatterApp.getRestClient();
-		client.getAccount(new JsonHttpResponseHandler() {
-			@Override
-			public void onSuccess(JSONObject accoutDetails) {
-				ActionBar actionBar = getActionBar();
-				u = User.fromJson(accoutDetails);
-				actionBar.setTitle("@" + u.getScreenName());
-			}
-			
-			@Override
-			public void onFailure(Throwable e, String s) {
-				Log.d("debug", e.toString());
-				Log.d("debug", s.toString());
-			}
-		});	
+		ActionBar actionBar = getActionBar();
+		actionBar.setTitle("@" + User.appUser.getScreenName());
 	}
 
 	

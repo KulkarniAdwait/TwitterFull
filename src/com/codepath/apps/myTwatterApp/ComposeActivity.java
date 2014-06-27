@@ -23,26 +23,25 @@ public class ComposeActivity extends Activity {
 	ImageView ivProfileImage;
 	private TwitterClient client;
 	final int TWEET_SIZE = 140;
-	User u;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_compose);
 		
-		u = getIntent().getParcelableExtra("user");
+		
 		
 		etComposeText = (EditText) findViewById(R.id.etComposeText);
 		
 		tvUserName = (TextView) findViewById(R.id.tvUserName_1);
-		tvUserName.setText(u.getName());
+		tvUserName.setText(User.appUser.getName());
 		
 		tvScreenName = (TextView) findViewById(R.id.tvScreenName_1);
-		tvScreenName.setText("@" + u.getScreenName());
+		tvScreenName.setText("@" + User.appUser.getScreenName());
 		
 		ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage_1);
 		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.displayImage(u.getProfileImgUrl(), ivProfileImage);
+		imageLoader.displayImage(User.appUser.getProfileImgUrl(), ivProfileImage);
 		
 		tvRemainingChars = (TextView) findViewById(R.id.tvRemainingChars);
 		
