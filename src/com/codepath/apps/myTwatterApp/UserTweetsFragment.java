@@ -23,7 +23,6 @@ public class UserTweetsFragment extends TweetsFragment {
 	
 	@Override
 	protected void populateTimeline() {
-		aTweets.clear();
 		client.getUserTimeline(jsonHttpResponseHandler()
 				, new TwitterParamBuilder()
 					.userId(user.getId())

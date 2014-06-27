@@ -19,6 +19,8 @@ public class TimelineActivity extends FragmentActivity {
 	private User u;
 	private TweetsFragment tweetsFragment;
 	
+	private final int COMPOSE_CODE = 111;
+	
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -28,11 +30,14 @@ public class TimelineActivity extends FragmentActivity {
 	
 	public void onCompose(MenuItem mi) {
 		Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
-//		i.putExtra("userName", u.getName());
-//		i.putExtra("screenName", u.getScreenName());
-//		i.putExtra("imgUrl", u.getProfileImgUrl());
 		i.putExtra("user", u);
-		startActivityForResult(i, 111);
+		startActivityForResult(i, COMPOSE_CODE);
+	}
+	
+	public void onProfile(MenuItem mi) {
+		Intent i = new Intent(TimelineActivity.this, ProfileActivity.class);
+		i.putExtra("user", u);
+		startActivity(i);
 	}
 	
 	@Override
@@ -70,7 +75,7 @@ public class TimelineActivity extends FragmentActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	  // REQUEST_CODE is defined above
-	  if (resultCode == RESULT_OK && requestCode == 111) {
+	  if (resultCode == RESULT_OK && requestCode == COMPOSE_CODE) {
 		  tweetsFragment.refreshFeed();
 	  }
 	} 

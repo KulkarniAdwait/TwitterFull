@@ -16,10 +16,12 @@
     <string name="btn_compose">Compose</string>
     <string name="et_hint_compose">What\'s happenning</string>
     <string name="tv_remaining_chars">140</string>
-    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_profile">Profile</string>
     <string name="word_tweets">TWEETS</string>
     <string name="word_following">FOLLOWING</string>
     <string name="word_followers">FOLLOWERS</string>
     <string name="test_number_23">23</string>
+    <string name="profile_image">profile image</string>
+    <string name="icon_image">profile image</string>
 
 </resources>

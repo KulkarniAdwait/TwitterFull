@@ -74,7 +74,10 @@ public class TweetsFragment extends Fragment {
 	}
 	
 	protected void populateTimeline() {
-		client.getHomeTimeline(jsonHttpResponseHandler(), new TwitterParamBuilder().maxId(max_id).buildParams());
+		client.getHomeTimeline(jsonHttpResponseHandler()
+				, new TwitterParamBuilder()
+					.maxId(max_id)
+					.buildParams());
 	}
 	
 	protected JsonHttpResponseHandler jsonHttpResponseHandler() {

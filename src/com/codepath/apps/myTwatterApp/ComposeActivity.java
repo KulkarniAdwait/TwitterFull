@@ -48,6 +48,8 @@ public class ComposeActivity extends Activity {
 		
 		client = MyTwatterApp.getRestClient();
 		
+		getActionBar().hide();
+		
 		etComposeText.addTextChangedListener(new TextWatcher() {
 			int cSize = 0;
 			
@@ -71,7 +73,7 @@ public class ComposeActivity extends Activity {
 			}
 		});
 	}
-	
+
 	public void onCompose(View v) {
 		if(etComposeText.getText().toString() != "") {
 			client.postUpdate(new AsyncHttpResponseHandler() {
