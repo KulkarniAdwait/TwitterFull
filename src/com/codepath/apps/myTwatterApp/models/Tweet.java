@@ -14,30 +14,42 @@ public class Tweet implements Parcelable {
 	private Long id;
 	private String createdAt;
 	private User user;
-	//public static Long since_id = 0l;
-	//public static Long max_id = 0l;
-	//public static Long top_max_id = 0l;
+	private long numFavorites;
+	private long numReTweets;
+	private boolean favorited;
+	private boolean retweeted;
 	
 	public static Tweet fromJson(JSONObject jsonObj) {
 		Tweet tweet = new Tweet();
 		try {
 			tweet.body = jsonObj.getString("text");
 			tweet.id = jsonObj.getLong("id");
-			//for the first time set of min id
-//			if(Tweet.since_id == 0) {
-//				Tweet.since_id = tweet.id;
-//			}
-//			
-//			if(tweet.id < Tweet.since_id) {
-//				Tweet.since_id = tweet.id;
-//			}
-//			
-//			if (tweet.id > Tweet.max_id) {
-//				Tweet.max_id = tweet.id;
-//				Tweet.setTop_max_id(tweet.id);
-//			}
 			tweet.createdAt = jsonObj.getString("created_at");
+			try {
+				tweet.numFavorites = jsonObj.getLong("favorite_count");
+			} catch (JSONException j) {
+				tweet.numFavorites = 0l;
+			}
+			try {
+				tweet.numReTweets = jsonObj.getLong("retweet_count");
+			} catch (JSONException j) {
+				tweet.numReTweets = 0l;
+			}
 			tweet.user = User.fromJson(jsonObj.getJSONObject("user"));
+			
+			try {
+				tweet.favorited = jsonObj.getBoolean("favorited");
+			}
+			catch (JSONException j) {
+				tweet.favorited = false;
+			}
+			
+			try {
+				tweet.retweeted = jsonObj.getBoolean("retweeted");
+			}
+			catch (JSONException j) {
+				tweet.retweeted = false;
+			}
 		} catch (JSONException je) {
 			je.printStackTrace();
 			return null;
@@ -59,6 +71,14 @@ public class Tweet implements Parcelable {
 
 	public User getUser() {
 		return user;
+	}
+	
+	public long getNumFavorites() {
+		return numFavorites;
+	}
+	
+	public long getNumReTweets() {
+		return numReTweets;
 	}
 	
 	public Tweet() {
@@ -91,10 +111,23 @@ public class Tweet implements Parcelable {
 	}
 
     protected Tweet(Parcel in) {
-        body = in.readString();
-        id = in.readByte() == 0x00 ? null : in.readLong();
-        createdAt = in.readString();
-        user = (User) in.readValue(User.class.getClassLoader());
+    	String[] data = new String[2];
+		in.readStringArray(data);
+		this.body = data[0];
+		this.createdAt = data[1];
+		
+		long[] longs = new long[3];
+		in.readLongArray(longs);
+		this.id = longs[0];
+		this.numFavorites = longs[1];
+		this.numReTweets = longs[2];
+		
+		user = (User) in.readParcelable(User.class.getClassLoader());
+		
+		boolean[] bools = new boolean[2];
+		in.readBooleanArray(bools);
+		this.favorited = bools[0];
+		this.retweeted = bools[1];
     }
 
     @Override
@@ -104,25 +137,43 @@ public class Tweet implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(body);
-        if (id == null) {
-            dest.writeByte((byte) (0x00));
-        } else {
-            dest.writeByte((byte) (0x01));
-            dest.writeLong(id);
-        }
-        dest.writeString(createdAt);
-        dest.writeValue(user);
+    	dest.writeStringArray(new String[] {
+				this.body,
+				this.createdAt
+		});
+        
+        dest.writeLongArray(new long[]{
+        		this.id,
+        		this.numFavorites,
+        		this.numReTweets
+        });
+        
+        dest.writeParcelable(user, 10);
+        
+        dest.writeBooleanArray(new boolean[] {
+        		this.favorited,
+        		this.retweeted
+        });
     }
 
-//    public static Long getTop_max_id() {
-//		//return top_max_id;
-//    	return 0l;
-//	}
 
-//	public static void setTop_max_id(Long top_max_id) {
-////		Tweet.top_max_id = top_max_id;
-//	}
+	public boolean isFavorited() {
+		return favorited;
+	}
+
+	public void setFavorited(boolean favorited) {
+		this.favorited = favorited;
+	}
+
+
+	public boolean isRetweeted() {
+		return retweeted;
+	}
+
+	public void setRetweeted(boolean retweeted) {
+		this.retweeted = retweeted;
+	}
+
 
 	public static final Parcelable.Creator<Tweet> CREATOR = new Parcelable.Creator<Tweet>() {
         @Override

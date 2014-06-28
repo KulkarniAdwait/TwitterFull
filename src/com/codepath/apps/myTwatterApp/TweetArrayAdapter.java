@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +44,8 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 		TextView tvBody = (TextView) v.findViewById(R.id.tvBody);
 		TextView tvTime = (TextView) v.findViewById(R.id.tvTime);
 		TextView tvScreenName = (TextView) v.findViewById(R.id.tvScreenName);
+		TextView tvNumFavorites = (TextView) v.findViewById(R.id.tvNumFavorites);
+		TextView tvNumReTweets = (TextView) v.findViewById(R.id.tvNumReTweets);
 		
 		ivProfileImage.setImageResource(android.R.color.transparent);
 		ImageLoader imageLoader = ImageLoader.getInstance();
@@ -51,6 +54,36 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 		tvBody.setText(tweet.getBody());
 		tvTime.setText(getRelativeTime(tweet.getCreatedAt()));
 		tvScreenName.setText("@" + tweet.getUser().getScreenName());
+		
+		if(tweet.getNumFavorites() > 0) {
+			tvNumFavorites.setText(String.valueOf(tweet.getNumFavorites()));
+		} else {
+			//1 is invisible
+			tvNumFavorites.setVisibility(View.INVISIBLE);
+		}
+		
+		ImageButton ibFavorite = (ImageButton) v.findViewById(R.id.tnFavorite);
+		if(tweet.isFavorited()) {
+			ibFavorite.setImageResource(R.drawable.ib_favorite_selected);
+		}
+		else {
+			ibFavorite.setImageResource(R.drawable.ib_favorite);
+		}
+		
+		if(tweet.getNumReTweets() > 0) {
+			tvNumReTweets.setText(String.valueOf(tweet.getNumReTweets()));
+		} else {
+			//1 is invisible
+			tvNumReTweets.setVisibility(View.INVISIBLE);
+		}
+		
+		ImageButton ibRetweet = (ImageButton) v.findViewById(R.id.tnReTweet);
+		if(tweet.isRetweeted()) {			
+			ibRetweet.setImageResource(R.drawable.ib_retweet_selected);
+		}
+		else {
+			ibRetweet.setImageResource(R.drawable.ib_retweet);
+		}
 		
 		ivProfileImage.setOnClickListener(new OnClickListener() {
 			Tweet t = getItem(position);

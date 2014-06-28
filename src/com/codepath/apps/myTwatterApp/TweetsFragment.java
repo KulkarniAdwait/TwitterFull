@@ -91,8 +91,10 @@ public class TweetsFragment extends Fragment {
 				aTweets.addAll(Tweet.fromJsonArray(json));
 				aTweets.notifyDataSetChanged();
 				//update page variables
-				max_id = tweets.get(0).getId();
-				since_id = tweets.get(tweets.size() - 1).getId();
+				if(tweets != null && tweets.size() > 0) {
+					max_id = tweets.get(0).getId();
+					since_id = tweets.get(tweets.size() - 1).getId();
+				}
 			}
 			
 			@Override

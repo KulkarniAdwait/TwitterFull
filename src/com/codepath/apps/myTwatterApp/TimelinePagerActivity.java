@@ -20,6 +20,9 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 public class TimelinePagerActivity extends FragmentActivity {
 	TimelinePagerAdapter timelinePagerAdapter;
 	
+	static TweetsFragment tweetsFragment;
+	static MentionsFragment mentionsFragment;
+	
 	private static final int NUM_TABS = 2;
 	private final int COMPOSE_CODE = 111;
 	
@@ -47,6 +50,9 @@ public class TimelinePagerActivity extends FragmentActivity {
 		setContentView(R.layout.activity_timeline_pager);
 		
 		getUserDetails();
+		
+		tweetsFragment = TweetsFragment.newInstance();
+		mentionsFragment = MentionsFragment.newInstance();
 		
 		ViewPager vpPager = (ViewPager) findViewById(R.id.vpPager);
 		timelinePagerAdapter = new TimelinePagerAdapter(getSupportFragmentManager());
@@ -87,9 +93,9 @@ public class TimelinePagerActivity extends FragmentActivity {
 		public Fragment getItem(int position) {
 			switch (position) {
 			case 0:
-				return TweetsFragment.newInstance();			
+				return tweetsFragment;			
 			case 1:
-				return MentionsFragment.newInstance();
+				return mentionsFragment;
 			}
 			return MentionsFragment.newInstance();
 		}
@@ -110,5 +116,13 @@ public class TimelinePagerActivity extends FragmentActivity {
 			return super.getPageTitle(position);
 		}
 		
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	  // REQUEST_CODE is defined above
+	  if (resultCode == RESULT_OK && requestCode == COMPOSE_CODE) {
+		  tweetsFragment.refreshFeed();
+	  }
 	}
 }

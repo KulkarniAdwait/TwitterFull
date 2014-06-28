@@ -9,6 +9,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_margin="7dp"
+        android:layout_marginBottom="5dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/ic_launcher"
@@ -43,7 +44,9 @@
         android:layout_alignLeft="@+id/tvUserName"
         android:layout_below="@+id/tvUserName"
         android:text="@string/dummy_tweet_body" 
-        android:layout_marginBottom="7dp"
+        android:autoLink="all"
+        android:linksClickable="true"
+        android:layout_marginBottom="1dp"
         android:layout_marginRight="5dp"/>
 
     <TextView
@@ -56,6 +59,81 @@
         android:layout_marginRight="5dp"
         android:textColor="@android:color/darker_gray"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
-
+    
+    <LinearLayout android:orientation="horizontal"
+        android:layout_below="@+id/tvBody"
+        android:layout_alignLeft="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+    
+	    <ImageButton 
+	        android:id="@+id/tnReply"
+	        android:background="#FFFFFF"      
+	        android:src="@drawable/ic_action_reply"
+	        android:layout_width="20dp"
+	        android:layout_height="20dp"
+	        
+	        android:layout_marginTop="5dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginBottom="5dp"
+	        android:contentDescription="@string/label_reply"
+	        
+	        />
+	    
+	    <ImageButton 
+	        android:id="@+id/tnReTweet"
+	        android:background="#FFFFFF"      
+	        android:src="@drawable/ib_retweet"
+	        android:layout_width="20dp"
+	        android:layout_height="20dp"
+	        android:layout_marginLeft="60dp"
+	        android:layout_marginTop="5dp"
+	        android:layout_marginBottom="5dp"
+	        android:contentDescription="@string/label_reply"
+	        android:adjustViewBounds="true"
+	        android:scaleType="centerCrop"
+	        />
+	    
+		<TextView
+	        android:id="@+id/tvNumReTweets"
+	        android:layout_width="50dp"
+	        android:layout_height="20dp"
+	        android:text="@string/test_number_23"        
+	        android:layout_marginTop="5dp"
+	        android:layout_marginBottom="5dp"
+	        android:layout_marginLeft="5dp"
+	        android:layout_marginRight="5dp"
+	        android:gravity="center_vertical"
+	        />
+	
+	    <ImageButton 
+	        android:id="@+id/tnFavorite"
+	        android:background="#FFFFFF"      
+	        android:src="@drawable/ib_favorite"
+	        android:layout_width="20dp"
+	        android:layout_height="20dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginTop="5dp"
+	        android:layout_marginBottom="5dp"
+	        android:contentDescription="@string/label_reply"
+	        android:adjustViewBounds="true"
+	        android:scaleType="centerCrop"
+	        />
+	    
+		<TextView
+	        android:id="@+id/tvNumFavorites"
+	        android:layout_width="50dp"
+	        android:layout_height="20dp"
+	        android:text="@string/test_number_23"        
+	        android:layout_marginTop="5dp"
+	        android:layout_marginBottom="5dp"
+	        android:layout_marginLeft="5dp"
+	        android:layout_marginRight="5dp"
+	        android:gravity="center_vertical"
+	        android:adjustViewBounds="true"
+	        android:scaleType="centerCrop"
+	        />
+	</LinearLayout>
+    
 </RelativeLayout>
