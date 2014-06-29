@@ -32,6 +32,7 @@ public class ProfileActivity extends FragmentActivity {
 	TextView tvProfileNumTweets;
 	TextView tvProfileNumFollowers;
 	TextView tvProfileNumFollowing;
+	TextView tvProfileDescription;
 	RelativeLayout rlProfileHeader;
 	User u;
 	private final int COMPOSE_CODE = 111;
@@ -48,6 +49,7 @@ public class ProfileActivity extends FragmentActivity {
 		tvProfileNumTweets = (TextView) findViewById(R.id.tvProfileNumTweets);
 		tvProfileNumFollowers = (TextView) findViewById(R.id.tvProfileNumFollowers);
 		tvProfileNumFollowing = (TextView) findViewById(R.id.tvProfileNumFollowing);
+		tvProfileDescription = (TextView) findViewById(R.id.tvProfileDescription);
 		
 		TwitterClient client = MyTwatterApp.getRestClient();
 		
@@ -74,6 +76,7 @@ public class ProfileActivity extends FragmentActivity {
 				tvProfileNumFollowing.setText(String.valueOf(u.getNumFollowing()));
 				ImageLoader imgLoader = ImageLoader.getInstance();
 				imgLoader.displayImage(u.getProfileImgUrl(), ivProfileProfileImage);
+				tvProfileDescription.setText(u.getDescription());
 			}
 			
 			@Override

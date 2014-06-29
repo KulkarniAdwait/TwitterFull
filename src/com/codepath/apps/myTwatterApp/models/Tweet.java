@@ -20,6 +20,7 @@ public class Tweet implements Parcelable {
 	private boolean retweeted;
 	private String mediaUrl;
 	
+	
 	public static Tweet fromJson(JSONObject jsonObj) {
 		Tweet tweet = new Tweet();
 		try {

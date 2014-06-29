@@ -16,17 +16,19 @@ public class User implements Parcelable {
 	private long numFollowers;
 	private long numFollowing;
 	private long numTweets;
+	private String description;
 	
 	public static User appUser; 
 	
 	public User(Parcel in) {
-		String[] data = new String[4];
+		String[] data = new String[5];
 		in.readStringArray(data);
 		
 		this.name = data[0];
 		this.screenName = data[1];
 		this.profileImgUrl = data[2];
 		this.profileBannerUrl = data[3];
+		this.description = data[4];
 		
 		long[] longs = new long[4];
 		in.readLongArray(longs);
@@ -83,6 +85,9 @@ public class User implements Parcelable {
 		return profileBannerUrl;
 	}
 	
+	public String getDescription() {
+		return description;
+	}
 	
 
 	public static User fromJson(JSONObject jsonObject) {
@@ -105,6 +110,7 @@ public class User implements Parcelable {
 			this.numFollowers = jsonObject.getLong("followers_count");
 			this.numFollowing = jsonObject.getLong("friends_count");
 			this.numTweets = jsonObject.getLong("statuses_count");
+			this.description = jsonObject.getString("description");
 		} catch (JSONException je) {
 			je.printStackTrace();
 		}
@@ -145,7 +151,8 @@ public class User implements Parcelable {
 					this.name,
 					this.screenName,
 					this.profileImgUrl,
-					this.profileBannerUrl
+					this.profileBannerUrl,
+					this.description
 				});
 		dest.writeLongArray(new long[]
 				{

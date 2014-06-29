@@ -8,7 +8,7 @@
     <RelativeLayout 
     android:id="@+id/rlProfileHeader"
     android:layout_width="match_parent"
-    android:layout_height="130dp"
+    android:layout_height="wrap_content"
     tools:context="${packageName}.${activityClass}"
     android:background="#66757f" 
     >
@@ -18,7 +18,7 @@
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
         android:src="@drawable/ic_launcher"
         android:contentDescription="@string/profile_image" />
 
@@ -40,6 +40,22 @@
         android:layout_centerHorizontal="true"
         android:text="@string/dummy_screen_name"
         android:textColor="@android:color/white" />
+    
+    <TextView
+        android:id="@+id/tvProfileDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvProfileScreenName"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:text="@string/hello_world"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        />
 	</RelativeLayout>
 	<TextView
 	    android:id="@+id/tvProfileNumTweets"
