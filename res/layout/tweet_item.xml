@@ -48,6 +48,19 @@
         android:linksClickable="true"
         android:layout_marginBottom="1dp"
         android:layout_marginRight="5dp"/>
+    
+    <ImageView
+        android:id="@+id/ivEmbeddedImage"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_below="@+id/tvBody"
+        android:layout_alignLeft="@+id/tvUserName"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:contentDescription="@string/dummy_screen_name"
+	    android:scaleType="centerCrop"
+        />
 
     <TextView
         android:id="@+id/tvTime"
@@ -61,7 +74,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
     
     <LinearLayout android:orientation="horizontal"
-        android:layout_below="@+id/tvBody"
+        android:layout_below="@+id/ivEmbeddedImage"
         android:layout_alignLeft="@+id/tvUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,10 +97,9 @@
 	    <ImageButton 
 	        android:id="@+id/tnReTweet"
 	        android:background="#FFFFFF"      
-	        android:src="@drawable/ib_retweet"
 	        android:layout_width="20dp"
 	        android:layout_height="20dp"
-	        android:layout_marginLeft="60dp"
+	        android:layout_marginLeft="70dp"
 	        android:layout_marginTop="5dp"
 	        android:layout_marginBottom="5dp"
 	        android:contentDescription="@string/label_reply"
@@ -109,8 +121,7 @@
 	
 	    <ImageButton 
 	        android:id="@+id/tnFavorite"
-	        android:background="#FFFFFF"      
-	        android:src="@drawable/ib_favorite"
+	        android:background="#FFFFFF"
 	        android:layout_width="20dp"
 	        android:layout_height="20dp"
 	        android:layout_marginLeft="10dp"
@@ -131,8 +142,6 @@
 	        android:layout_marginLeft="5dp"
 	        android:layout_marginRight="5dp"
 	        android:gravity="center_vertical"
-	        android:adjustViewBounds="true"
-	        android:scaleType="centerCrop"
 	        />
 	</LinearLayout>
     

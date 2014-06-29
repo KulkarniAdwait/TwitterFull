@@ -29,8 +29,6 @@ public class ComposeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_compose);
 		
-		
-		
 		etComposeText = (EditText) findViewById(R.id.etComposeText);
 		
 		tvUserName = (TextView) findViewById(R.id.tvUserName_1);
@@ -48,6 +46,14 @@ public class ComposeActivity extends Activity {
 		client = MyTwatterApp.getRestClient();
 		
 		getActionBar().hide();
+		
+		if(getIntent().getStringExtra("replyScreenName") != null) {
+			etComposeText.setText("@" + getIntent().getStringExtra("replyScreenName"));
+			//adding 1 for the @
+			int cSize = getIntent().getStringExtra("replyScreenName").length() + 1;
+			tvRemainingChars.setText(String.valueOf(TWEET_SIZE - cSize));
+			etComposeText.setSelection(etComposeText.length());
+		}
 		
 		etComposeText.addTextChangedListener(new TextWatcher() {
 			int cSize = 0;

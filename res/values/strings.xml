@@ -25,5 +25,6 @@
     <string name="icon_image">profile image</string>
     <string name="title_activity_timeline_pager">TimelinePagerActivity</string>
     <string name="label_reply">Reply</string>
+    <string name="title_activity_image_view">ImageViewActivity</string>
 
 </resources>

@@ -18,6 +18,7 @@ public class Tweet implements Parcelable {
 	private long numReTweets;
 	private boolean favorited;
 	private boolean retweeted;
+	private String mediaUrl;
 	
 	public static Tweet fromJson(JSONObject jsonObj) {
 		Tweet tweet = new Tweet();
@@ -49,6 +50,20 @@ public class Tweet implements Parcelable {
 			}
 			catch (JSONException j) {
 				tweet.retweeted = false;
+			}
+			
+			tweet.mediaUrl = "";
+			try {
+				JSONArray ja = jsonObj.getJSONObject("entities").getJSONArray("media");
+				for (int i = 0; i < ja.length(); i+=1) {
+					if("photo".equals(ja.getJSONObject(i).getString("type"))) {
+						tweet.mediaUrl = ja.getJSONObject(i).getString("media_url");
+						break;
+					}
+				}
+			}
+			catch (JSONException j) {
+				tweet.mediaUrl = "";
 			}
 		} catch (JSONException je) {
 			je.printStackTrace();
@@ -111,10 +126,11 @@ public class Tweet implements Parcelable {
 	}
 
     protected Tweet(Parcel in) {
-    	String[] data = new String[2];
+    	String[] data = new String[3];
 		in.readStringArray(data);
 		this.body = data[0];
 		this.createdAt = data[1];
+		this.mediaUrl = data[2];
 		
 		long[] longs = new long[3];
 		in.readLongArray(longs);
@@ -139,7 +155,8 @@ public class Tweet implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
     	dest.writeStringArray(new String[] {
 				this.body,
-				this.createdAt
+				this.createdAt,
+				this.mediaUrl
 		});
         
         dest.writeLongArray(new long[]{
@@ -174,6 +191,10 @@ public class Tweet implements Parcelable {
 		this.retweeted = retweeted;
 	}
 
+
+	public String getMediaUrl() {
+		return mediaUrl;
+	}
 
 	public static final Parcelable.Creator<Tweet> CREATOR = new Parcelable.Creator<Tweet>() {
         @Override

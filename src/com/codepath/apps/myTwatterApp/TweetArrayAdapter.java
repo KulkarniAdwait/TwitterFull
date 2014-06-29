@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -22,13 +23,15 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 	
+	Tweet tweet;
+	
 	public TweetArrayAdapter(Context context, List<Tweet> objects) {
 		super(context, 0, objects);
 	}
 	
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		Tweet tweet = getItem(position);
+		tweet = getItem(position);
 		
 		View v;
 		if(convertView == null) {
@@ -55,13 +58,8 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 		tvTime.setText(getRelativeTime(tweet.getCreatedAt()));
 		tvScreenName.setText("@" + tweet.getUser().getScreenName());
 		
-		if(tweet.getNumFavorites() > 0) {
-			tvNumFavorites.setText(String.valueOf(tweet.getNumFavorites()));
-		} else {
-			//1 is invisible
-			tvNumFavorites.setVisibility(View.INVISIBLE);
-		}
-		
+		//Favorite stuff
+		//Image
 		ImageButton ibFavorite = (ImageButton) v.findViewById(R.id.tnFavorite);
 		if(tweet.isFavorited()) {
 			ibFavorite.setImageResource(R.drawable.ib_favorite_selected);
@@ -69,14 +67,16 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 		else {
 			ibFavorite.setImageResource(R.drawable.ib_favorite);
 		}
-		
-		if(tweet.getNumReTweets() > 0) {
-			tvNumReTweets.setText(String.valueOf(tweet.getNumReTweets()));
-		} else {
-			//1 is invisible
-			tvNumReTweets.setVisibility(View.INVISIBLE);
+			
+		//numbers
+		tvNumFavorites.setVisibility(View.INVISIBLE);
+		if(tweet.getNumFavorites() > 0) {
+			tvNumFavorites.setText(String.valueOf(tweet.getNumFavorites()));
+			tvNumFavorites.setVisibility(View.VISIBLE);
 		}
 		
+		//Re Tweet Stuff
+		//Image
 		ImageButton ibRetweet = (ImageButton) v.findViewById(R.id.tnReTweet);
 		if(tweet.isRetweeted()) {			
 			ibRetweet.setImageResource(R.drawable.ib_retweet_selected);
@@ -84,7 +84,14 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 		else {
 			ibRetweet.setImageResource(R.drawable.ib_retweet);
 		}
+		//numbers
+		tvNumReTweets.setVisibility(View.INVISIBLE);
+		if(tweet.getNumReTweets() > 0) {
+			tvNumReTweets.setText(String.valueOf(tweet.getNumReTweets()));
+			tvNumReTweets.setVisibility(View.VISIBLE);
+		}
 		
+		//plumbing for the user image in the tweet
 		ivProfileImage.setOnClickListener(new OnClickListener() {
 			Tweet t = getItem(position);
 			@Override
@@ -94,6 +101,42 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 				getContext().startActivity(i);
 			}
 		});
+		
+		//plumbing for the reply button
+		ImageButton ibReply = (ImageButton) v.findViewById(R.id.tnReply);
+		ibReply.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getContext(), ComposeActivity.class);
+				i.putExtra("replyScreenName", tweet.getUser().getScreenName());
+				getContext().startActivity(i);
+			}
+		});
+		
+		//if there is an embedded image then display it in the tweet
+		ImageView ivEmbedded = (ImageView) v.findViewById(R.id.ivEmbeddedImage);
+		ivEmbedded.setVisibility(View.INVISIBLE);
+		LayoutParams lParams = ivEmbedded.getLayoutParams();
+		lParams.height = 0;
+		lParams.width = 0;
+		ivEmbedded.setLayoutParams(lParams);
+		//image exists
+		if(tweet.getMediaUrl() != "") {
+			ivEmbedded.setVisibility(View.VISIBLE);
+			lParams.height = 500;
+			lParams.width = LayoutParams.MATCH_PARENT;
+			ivEmbedded.setLayoutParams(lParams);
+			imageLoader.displayImage(tweet.getMediaUrl(), ivEmbedded);
+			ivEmbedded.setOnClickListener(new OnClickListener() {
+				String imgUrl = tweet.getMediaUrl();
+				@Override
+				public void onClick(View v) {					
+					Intent i = new Intent(getContext(), ImageViewActivity.class);
+					i.putExtra("imgUrl", imgUrl);
+					getContext().startActivity(i);
+				}
+			});
+		}
 			
 		return v;
 	}
