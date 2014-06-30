@@ -30,7 +30,7 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 	}
 	
 	@Override
-	public View getView(final int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {		
 		tweet = getItem(position);
 		
 		View v;
@@ -105,10 +105,11 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 		//plumbing for the reply button
 		ImageButton ibReply = (ImageButton) v.findViewById(R.id.tnReply);
 		ibReply.setOnClickListener(new OnClickListener() {
+			Tweet t = getItem(position);
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(getContext(), ComposeActivity.class);
-				i.putExtra("replyScreenName", tweet.getUser().getScreenName());
+				i.putExtra("replyScreenName", t.getUser().getScreenName());
 				getContext().startActivity(i);
 			}
 		});

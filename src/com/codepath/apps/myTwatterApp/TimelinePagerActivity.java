@@ -59,6 +59,14 @@ public class TimelinePagerActivity extends FragmentActivity {
 		vpPager.setAdapter(timelinePagerAdapter);
 	}
 	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
+		//tweetsFragment.refreshFeed();
+	}
+	
 	private void getUserDetails() {
 		if(User.appUser == null) {
 			TwitterClient client = MyTwatterApp.getRestClient();

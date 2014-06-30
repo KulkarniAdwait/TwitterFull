@@ -47,6 +47,7 @@ public class ComposeActivity extends Activity {
 		
 		getActionBar().hide();
 		
+		etComposeText.setText("");
 		if(getIntent().getStringExtra("replyScreenName") != null) {
 			etComposeText.setText("@" + getIntent().getStringExtra("replyScreenName"));
 			//adding 1 for the @
